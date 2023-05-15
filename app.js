@@ -4,18 +4,22 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 let dotenv = require("dotenv");
+let cors = require("cors");
 dotenv.config();
 const PORT = 8100;
 const openaiRouter = require("./routes/openai");
+const libraryRouter = require("./routes/liibrary");
 
 var app = express();
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/openai", openaiRouter);
+app.use("/library", libraryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
